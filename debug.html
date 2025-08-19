@@ -19,13 +19,13 @@
     <h2>测试头像图片</h2>
     
     <div>
-        <h3>avatar_study.png</h3>
+        <h3>avatar_study.jpg</h3>
         <img id="img1" class="test-image" alt="Study Avatar" />
         <div id="status1" class="status loading">加载中...</div>
     </div>
     
     <div>
-        <h3>avatar_inner.png</h3>
+        <h3>avatar_inner.jpg</h3>
         <img id="img2" class="test-image" alt="Inner Avatar" />
         <div id="status2" class="status loading">加载中...</div>
     </div>
@@ -54,17 +54,17 @@
         }
         
         // 测试图片加载
-        testImage('img1', 'status1', 'avatar_study.png');
-        testImage('img2', 'status2', 'avatar_inner.png');
+        testImage('img1', 'status1', 'avatar_study.jpg');
+        testImage('img2', 'status2', 'avatar_inner.jpg');
         
         // 显示文件信息
         const fileInfo = document.getElementById('fileInfo');
         fileInfo.innerHTML = `
             <p><strong>当前页面URL:</strong> ${window.location.href}</p>
-            <p><strong>图片路径1:</strong> avatar_study.png</p>
-            <p><strong>图片路径2:</strong> avatar_inner.png</p>
-            <p><strong>完整URL1:</strong> ${new URL('avatar_study.png', window.location.href).href}</p>
-            <p><strong>完整URL2:</strong> ${new URL('avatar_inner.png', window.location.href).href}</p>
+            <p><strong>图片路径1:</strong> avatar_study.jpg</p>
+            <p><strong>图片路径2:</strong> avatar_inner.jpg</p>
+            <p><strong>完整URL1:</strong> ${new URL('avatar_study.jpg', window.location.href).href}</p>
+            <p><strong>完整URL2:</strong> ${new URL('avatar_inner.jpg', window.location.href).href}</p>
         `;
     </script>
 </body>
