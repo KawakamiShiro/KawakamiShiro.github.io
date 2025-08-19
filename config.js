@@ -13,7 +13,7 @@ const siteConfig = {
     name: "渥 / 学业形态",
     nickname: "Lund ML Systems",
     tagline: "研究方向：RAG + ReAct 个性化推理",
-    avatar: "./avatar_study.png",
+    avatar: "avatar_study.png",
     sections: [
       {
         title: "研究与课程",
@@ -40,7 +40,7 @@ const siteConfig = {
     name: "渥 / 里形态",
     nickname: "可以叫我小渥",
     tagline: "社恐、弱社交、爱直给",
-    avatar: "./avatar_inner.png",
+    avatar: "avatar_inner.png",
     sections: [
       {
         title: "电竞 / 主播",
