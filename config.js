@@ -10,9 +10,9 @@ const siteConfig = {
 
   // 表形态（学业形态）配置
   dayMode: {
-    name: "渥 / 学业形态",
-    nickname: "Lund ML Systems",
-    tagline: "研究方向：RAG + ReAct 个性化推理",
+    name: "Jiuen Feng",
+    nickname: "Lund Machine Learning,Systems and Control",
+    tagline: "研究方向：人机交互/具身智能",
     avatar: "avatar_study.jpg",
     sections: [
       {
@@ -32,14 +32,14 @@ const siteConfig = {
         ]
       }
     ],
-    footer: "© 2024 表·学业形态"
+    footer: "© 2025 Kawakami Shiro"
   },
 
   // 里形态（二次元形态）配置
   nightMode: {
-    name: "渥 / 里形态",
-    nickname: "可以叫我小渥",
-    tagline: "社恐、弱社交、爱直给",
+    name: "渊/海洋球",
+    nickname: "可以叫我小渊",
+    tagline: "社恐、弱社交，一只冰川鼠妇",
     avatar: "avatar_inner.jpg",
     sections: [
       {
@@ -69,6 +69,7 @@ const siteConfig = {
         items: [
           "Godot 学习中",
           "原创视觉小说筹备中"
+          "https://marinepup.itch.io/"
         ]
       },
       {
@@ -79,7 +80,7 @@ const siteConfig = {
         ]
       }
     ],
-    footer: "© 2024 里·二次元形态"
+    footer: "© 2025 Kawakami Shiro"
   },
 
   // 主题配色配置
