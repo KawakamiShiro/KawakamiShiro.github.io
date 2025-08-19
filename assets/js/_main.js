@@ -2,6 +2,13 @@
    jQuery plugin settings and other scripts
    ========================================================================== */
 
+// 引入双主题脚本
+document.addEventListener('DOMContentLoaded', function() {
+  const script = document.createElement('script');
+  script.src = '/assets/js/dual-theme.js';
+  document.head.appendChild(script);
+});
+
 $(document).ready(function(){
    // Sticky footer
   var bumpIt = function() {

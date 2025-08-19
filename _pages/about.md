@@ -1,12 +1,16 @@
 ---
 permalink: /
-title: "academicpages is a ready-to-fork GitHub Pages template for academic personal websites"
+title: "渥 / 学业形态"
 excerpt: "About me"
 author_profile: true
 redirect_from: 
   - /about/
   - /about.html
 ---
+
+<div class="page__title">渥 / 学业形态</div>
+<div class="page__subtitle">Lund ML Systems</div>
+<div class="page__tagline">研究方向：RAG + ReAct 个性化推理</div>
 
 I'm a third year undergraduate student from School of the Young Gifted in University of Science and Technology of China, majored in Automation.
 

@@ -1,0 +1,83 @@
+---
+---
+
+/* ==========================================================================
+   双主题切换样式
+   ========================================================================== */
+
+:root {
+  /* 默认先给表形态的高级灰红 */
+  --card: #ffffff;
+  --text: #1f2937;   /* 高级灰文字 */
+  --muted: #6b7280;  /* 次要文字 */
+  --accent: #ef4444; /* 点缀红 */
+  --radius: 18px;
+  --shadow: 0 8px 30px rgba(0,0,0,0.06);
+  --t: 360ms cubic-bezier(.2,.8,.2,1);
+}
+
+/* 背景层：两层交叉淡入，做到平滑过渡与上下（Top→Bottom）线性渐变 */
+.dual-theme-bg { 
+  position: fixed; 
+  inset: 0; 
+  z-index: -1; 
+  pointer-events: none; 
+  opacity: 1; 
+  transition: opacity var(--t); 
+}
+
+.dual-theme-bg.fade { 
+  opacity: 0; 
+}
+
+/* 主题切换按钮样式 */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  transition: background var(--t), border-color var(--t);
+}
+
+.theme-toggle button {
+  all: unset;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.theme-toggle button.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* 响应式调整 */
+@media (max-width: 560px) {
+  .theme-toggle {
+    padding: 4px 8px;
+  }
+  
+  .theme-toggle button {
+    padding: 4px 8px;
+  }
+  
+  .theme-toggle svg {
+    width: 16px;
+    height: 16px;
+  }
+} 
