@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>个人主页 · 表/里双界面（上下渐变 + 平滑切换）</title>
+  <style>
+    :root {
+      /* 默认先给表形态的高级灰红 */
+      --card: #ffffff;
+      --text: #1f2937;   /* 高级灰文字 */
+      --muted: #6b7280;  /* 次要文字 */
+      --accent: #ef4444; /* 点缀红 */
+      --radius: 18px;
+      --shadow: 0 8px 30px rgba(0,0,0,0.06);
+      --t: 360ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    html,body { height:100%; }
+    body {
+      margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      color: var(--text);
+      transition: color var(--t), background-color var(--t);
+      background: transparent; /* 背景由下方 .bg 层负责 */
+    }
+
+    /* 背景层：两层交叉淡入，做到平滑过渡与上下（Top→Bottom）线性渐变 */
+    .bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 1; transition: opacity var(--t); }
+    .bg.fade { opacity: 0; }
+
+    .container{max-width:860px;margin:42px auto 96px;padding:0 20px;}
+
+    header{display:grid;grid-template-columns:76px 1fr auto;gap:18px;align-items:center;}
+    .avatar{width:76px;height:76px;border-radius:50%;overflow:hidden;background:var(--card);box-shadow:var(--shadow);display:grid;place-items:center;border:1px solid rgba(0,0,0,.06);}
+    .avatar img{width:100%;height:100%;object-fit:cover;}
+
+    .title{margin:0;font-size:28px;font-weight:800;letter-spacing:.2px;}
+    .subtitle{margin:6px 0 0;color:var(--muted);font-size:15px;}
+
+    .toggle{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(0,0,0,.12);border-radius:999px;padding:6px 10px;background:var(--card);box-shadow:var(--shadow);transition:background var(--t), border-color var(--t);}    
+    .toggle button{all:unset;cursor:pointer;padding:6px 10px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;}
+    .toggle button.active{background:var(--accent);color:#fff;}
+    .toggle svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;}
+
+    .tagline{margin:18px 0 26px;padding:14px 18px;border-radius:14px;background:var(--card);box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.06);transition:background var(--t), color var(--t), border-color var(--t);} 
+
+    .grid{display:grid;gap:12px;}
+    .section{background:var(--card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;transition:background var(--t), color var(--t), border-color var(--t);} 
+    .section h2{font-size:18px;margin:0 0 10px;}
+    .items{display:grid;gap:8px;}
+    .item{font-size:15px;}
+
+    footer{margin-top:28px;color:var(--muted);font-size:13px;text-align:center;}
+
+    @media (max-width:560px){
+      header{grid-template-columns:56px 1fr auto;}
+      .title{font-size:22px;}
+    }
+  </style>
+</head>
+<body>
+  <!-- 双层背景用于淡入淡出：bgA 当前，bgB 作为下一帧渐变层 -->
+  <div id="bgA" class="bg"></div>
+  <div id="bgB" class="bg fade"></div>
+
+  <div class="container">
+    <header>
+      <div class="avatar"><img id="avatar" alt="avatar" /></div>
+      <div>
+        <h1 class="title" id="siteTitle"></h1>
+        <p class="subtitle" id="siteSub"></p>
+      </div>
+      <div class="toggle" aria-label="模式切换">
+        <button id="btnDay" title="表·学业形态">
+          <!-- 黑白太阳图标（线框） -->
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <button id="btnNight" title="里·二次元形态">
+          <!-- 黑白月亮图标（线框） -->
+          <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <p class="tagline" id="tagline"></p>
+
+    <div id="sections" class="grid"></div>
+
+    <footer><div id="footer"></div></footer>
+  </div>
+
+  <script>
+    // ===== 两套主题：上下渐变 + 高级灰配色 =====
+    const themeDay = {
+      // 上下渐变（浅红 → 白）
+      grad1: '#f9e8ea',  // 顶部更接近浅红（带灰）
+      grad2: '#ffffff',  // 底部白
+      text:  '#1f2937',  // 高级灰文字
+      muted: '#6b7280',
+      card:  '#ffffff',
+      accent:'#ef4444'
+    };
+
+    const themeNight = {
+      // 上下渐变（浅蓝 → 白）
+      grad1: '#e8f0fb',  // 顶部浅蓝灰
+      grad2: '#ffffff',  // 底部白
+      text:  '#1f2735',
+      muted: '#5b6472',
+      card:  '#ffffff',
+      accent:'#3b82f6'
+    };
+
+    const dataDay = {
+      name:'渥 / 学业形态',
+      nickname:'Lund ML Systems',
+      tagline:'研究方向：RAG + ReAct 个性化推理',
+      avatar:'./avatar_study.jpg',
+      sections:[
+        {title:'研究与课程',items:['课程学习','研究方向','项目']},
+        {title:'技能栈',items:['Python','JS','Docker']}
+      ],
+      footer:'© '+new Date().getFullYear()+' 表·学业形态'
+    };
+
+    const dataNight = {
+      name:'渥 / 里形态',
+      nickname:'可以叫我小渥',
+      tagline:'社恐、弱社交、爱直给',
+      avatar:'./avatar_inner.jpg',
+      sections:[
+        {title:'电竞 / 主播',items:['赛事只看 VCT CN','友情支持 xlg']},
+        {title:'史同',items:['钟会、郁超','荀右相关']},
+        {title:'游戏',items:['Apex 黄金烟角','视觉小说爱好','手游只玩给旅人']},
+        {title:'游戏制作',items:['Godot 学习中','原创视觉小说筹备中']},
+        {title:'番剧',items:['影之实力者','游戏人生']}
+      ],
+      footer:'© '+new Date().getFullYear()+' 里·二次元形态'
+    };
+
+    // ===== DOM & 工具 =====
+    const $ = s => document.querySelector(s);
+    const elSections = $('#sections');
+    const elTitle = $('#siteTitle');
+    const elSub = $('#siteSub');
+    const elTag = $('#tagline');
+    const elFooter = $('#footer');
+    const elAvatar = $('#avatar');
+    const btnDay = $('#btnDay');
+    const btnNight = $('#btnNight');
+    const bgA = $('#bgA');
+    const bgB = $('#bgB');
+
+    function applyThemeVars(th){
+      document.documentElement.style.setProperty('--text', th.text);
+      document.documentElement.style.setProperty('--muted', th.muted);
+      document.documentElement.style.setProperty('--card', th.card);
+      document.documentElement.style.setProperty('--accent', th.accent);
+    }
+
+    function setGradientOn(el, th){
+      el.style.background = `linear-gradient(to bottom, ${th.grad1}, ${th.grad2})`;
+    }
+
+    // 渐变 Crossfade：把下一主题放到隐藏层，淡入后交换层级
+    let activeBgIsA = true;
+    function crossfadeBackground(nextTheme){
+      const show = activeBgIsA ? bgB : bgA;
+      const hide = activeBgIsA ? bgA : bgB;
+      setGradientOn(show, nextTheme);
+      // 先确保下一层在背后
+      show.classList.add('fade'); // 保持 0，准备淡入
+      // 强制 reflow 以应用过渡
+      void show.offsetWidth;
+      // 淡入新背景
+      show.classList.remove('fade');
+      // 同时淡出旧背景
+      hide.classList.add('fade');
+      // 切换标记
+      activeBgIsA = !activeBgIsA;
+    }
+
+    function updateToggle(isDay){
+      btnDay.classList.toggle('active', isDay);
+      btnNight.classList.toggle('active', !isDay);
+    }
+
+    function renderData(d){
+      elTitle.textContent = d.name;
+      elSub.textContent = d.nickname || '';
+      elTag.textContent = d.tagline || '';
+      elFooter.textContent = d.footer || '';
+      if (d.avatar) { elAvatar.src = d.avatar; elAvatar.style.display = 'block'; }
+      else { elAvatar.style.display = 'none'; }
+
+      elSections.innerHTML = '';
+      (d.sections||[]).forEach(sec=>{
+        const box = document.createElement('section'); box.className = 'section';
+        const h2 = document.createElement('h2'); h2.textContent = sec.title; box.appendChild(h2);
+        const list = document.createElement('div'); list.className='items';
+        (sec.items||[]).forEach(line=>{ const p=document.createElement('div'); p.className='item'; p.textContent=line; list.appendChild(p); });
+        box.appendChild(list); elSections.appendChild(box);
+      });
+    }
+
+    const STORAGE_KEY = 'site-mode';
+    const getMode = () => localStorage.getItem(STORAGE_KEY) || 'day';
+    const setMode = (m) => localStorage.setItem(STORAGE_KEY, m);
+
+    function applyMode(mode, instant=false){
+      const isDay = mode === 'day';
+      const th = isDay ? themeDay : themeNight;
+      applyThemeVars(th);
+      if (instant){
+        // 初次渲染不做动画：把两层都设到同一渐变，避免闪烁
+        setGradientOn(bgA, th);
+        setGradientOn(bgB, th);
+        bgA.classList.remove('fade');
+        bgB.classList.add('fade');
+      } else {
+        crossfadeBackground(th);
+      }
+      renderData(isDay ? dataDay : dataNight);
+      updateToggle(isDay);
+    }
+
+    // 初始化
+    applyMode(getMode(), true);
+
+    // 绑定事件
+    btnDay.addEventListener('click', ()=>{ setMode('day'); applyMode('day'); });
+    btnNight.addEventListener('click', ()=>{ setMode('night'); applyMode('night'); });
+  </script>
+</body>
+</html>
