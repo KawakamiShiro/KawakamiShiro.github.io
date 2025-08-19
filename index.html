@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>个人主页 · 表/里双界面（上下渐变 + 平滑切换）</title>
+  <title id="pageTitle">个人主页 · 表/里双界面（上下渐变 + 平滑切换）</title>
   <style>
     :root {
       /* 默认先给表形态的高级灰红 */
@@ -89,53 +89,20 @@
     <footer><div id="footer"></div></footer>
   </div>
 
+  <script src="./config.js"></script>
   <script>
-    // ===== 两套主题：上下渐变 + 高级灰配色 =====
-    const themeDay = {
-      // 上下渐变（浅红 → 白）
-      grad1: '#f9e8ea',  // 顶部更接近浅红（带灰）
-      grad2: '#ffffff',  // 底部白
-      text:  '#1f2937',  // 高级灰文字
-      muted: '#6b7280',
-      card:  '#ffffff',
-      accent:'#ef4444'
-    };
-
-    const themeNight = {
-      // 上下渐变（浅蓝 → 白）
-      grad1: '#e8f0fb',  // 顶部浅蓝灰
-      grad2: '#ffffff',  // 底部白
-      text:  '#1f2735',
-      muted: '#5b6472',
-      card:  '#ffffff',
-      accent:'#3b82f6'
-    };
+    // ===== 从配置文件读取主题和内容 =====
+    const themeDay = siteConfig.themes.day;
+    const themeNight = siteConfig.themes.night;
 
     const dataDay = {
-      name:'渥 / 学业形态',
-      nickname:'Lund ML Systems',
-      tagline:'研究方向：RAG + ReAct 个性化推理',
-      avatar:'./avatar_study.jpg',
-      sections:[
-        {title:'研究与课程',items:['课程学习','研究方向','项目']},
-        {title:'技能栈',items:['Python','JS','Docker']}
-      ],
-      footer:'© '+new Date().getFullYear()+' 表·学业形态'
+      ...siteConfig.dayMode,
+      footer: siteConfig.dayMode.footer.replace('2024', new Date().getFullYear())
     };
 
     const dataNight = {
-      name:'渥 / 里形态',
-      nickname:'可以叫我小渥',
-      tagline:'社恐、弱社交、爱直给',
-      avatar:'./avatar_inner.jpg',
-      sections:[
-        {title:'电竞 / 主播',items:['赛事只看 VCT CN','友情支持 xlg']},
-        {title:'史同',items:['钟会、郁超','荀右相关']},
-        {title:'游戏',items:['Apex 黄金烟角','视觉小说爱好','手游只玩给旅人']},
-        {title:'游戏制作',items:['Godot 学习中','原创视觉小说筹备中']},
-        {title:'番剧',items:['影之实力者','游戏人生']}
-      ],
-      footer:'© '+new Date().getFullYear()+' 里·二次元形态'
+      ...siteConfig.nightMode,
+      footer: siteConfig.nightMode.footer.replace('2024', new Date().getFullYear())
     };
 
     // ===== DOM & 工具 =====
@@ -224,6 +191,9 @@
       updateToggle(isDay);
     }
 
+    // 更新页面标题
+    document.title = siteConfig.siteInfo.title;
+    
     // 初始化
     applyMode(getMode(), true);
 
