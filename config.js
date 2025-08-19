@@ -52,14 +52,14 @@ const siteConfig = {
       {
         title: "史同",
         items: [
-          "钟会、郁超",
-          "荀右相关"
+          "钟会、郗超",
+          "会右&桓郗谢"
         ]
       },
       {
         title: "游戏",
         items: [
-          "Apex 黄金烟角",
+          "Apex 密客绝症",
           "视觉小说爱好",
           "手游只玩给旅人"
         ]
@@ -68,8 +68,8 @@ const siteConfig = {
         title: "游戏制作",
         items: [
           "Godot 学习中",
-          "原创视觉小说筹备中"
-          "https://marinepup.itch.io/"
+          "原创视觉小说筹备中",
+          "MarinPup Studio: https://marinepup.itch.io/"
         ]
       },
       {

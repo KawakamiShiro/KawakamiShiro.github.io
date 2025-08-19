@@ -183,7 +183,35 @@
         const box = document.createElement('section'); box.className = 'section';
         const h2 = document.createElement('h2'); h2.textContent = sec.title; box.appendChild(h2);
         const list = document.createElement('div'); list.className='items';
-        (sec.items||[]).forEach(line=>{ const p=document.createElement('div'); p.className='item'; p.textContent=line; list.appendChild(p); });
+        (sec.items||[]).forEach(line=>{ 
+          const p=document.createElement('div'); 
+          p.className='item'; 
+          
+          // 检查是否包含超链接
+          if (line.includes('http')) {
+            const parts = line.split('http');
+            const text = parts[0];
+            const url = 'http' + parts[1];
+            
+            if (text) {
+              p.appendChild(document.createTextNode(text));
+            }
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = url;
+            link.style.color = 'var(--accent)';
+            link.style.textDecoration = 'underline';
+            
+            p.appendChild(link);
+          } else {
+            p.textContent = line;
+          }
+          
+          list.appendChild(p); 
+        });
         box.appendChild(list); elSections.appendChild(box);
       });
     }
