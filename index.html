@@ -157,8 +157,19 @@
       elSub.textContent = d.nickname || '';
       elTag.textContent = d.tagline || '';
       elFooter.textContent = d.footer || '';
-      if (d.avatar) { elAvatar.src = d.avatar; elAvatar.style.display = 'block'; }
-      else { elAvatar.style.display = 'none'; }
+      
+      // 调试头像显示
+      console.log('Avatar path:', d.avatar);
+      console.log('Avatar element:', elAvatar);
+      
+      if (d.avatar) { 
+        elAvatar.src = d.avatar; 
+        elAvatar.style.display = 'block';
+        console.log('Avatar src set to:', elAvatar.src);
+      } else { 
+        elAvatar.style.display = 'none';
+        console.log('Avatar hidden');
+      }
 
       elSections.innerHTML = '';
       (d.sections||[]).forEach(sec=>{
@@ -197,6 +208,17 @@
     // 初始化
     applyMode(getMode(), true);
 
+    // 头像加载错误处理
+    elAvatar.addEventListener('error', function() {
+      console.error('Avatar image failed to load:', this.src);
+      this.style.display = 'none';
+    });
+    
+    elAvatar.addEventListener('load', function() {
+      console.log('Avatar image loaded successfully:', this.src);
+      this.style.display = 'block';
+    });
+    
     // 绑定事件
     btnDay.addEventListener('click', ()=>{ setMode('day'); applyMode('day'); });
     btnNight.addEventListener('click', ()=>{ setMode('night'); applyMode('night'); });
