@@ -7,7 +7,7 @@ const articlesConfig = {
   "卡拉彼丘观察日志": {
     "name": "卡拉彼丘观察日志",
     "description": "卡拉彼丘观察日志相关文章",
-    "icon": "📄"
+    "icon": ""
   }
 },
 
