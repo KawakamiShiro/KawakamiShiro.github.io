@@ -44,7 +44,7 @@ const articlesConfig = {
     "date": "2025-08-20",
     "author": "渊",
     "id": 2,
-    "file": "001.html",
+    "file": "002.html",
     "rawFile": "raw_article/泛视觉小说品鉴录/002-水烟水雾.md"
   }
 ],

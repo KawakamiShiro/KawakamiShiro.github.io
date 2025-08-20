@@ -304,7 +304,7 @@ const articleTemplate = (title, meta, content) => `<!DOCTYPE html>
     </div>
 
     <!-- 返回主页按钮 -->
-    <button class="back-home" onclick="goHome()" title="返回主页">🏠</button>
+    <button class="back-home" onclick="goHome()" title="返回主页">⌂</button>
 
     <script>
         // 返回主页
@@ -423,25 +423,28 @@ function scanArticles() {
         .filter(dirent => dirent.isDirectory())
         .map(dirent => dirent.name);
     
+    let globalIndex = 0; // 全局文章索引
+    
     categories.forEach(category => {
         const categoryDir = path.join(rawArticleDir, category);
         const files = fs.readdirSync(categoryDir)
             .filter(file => file.endsWith('.md'))
             .sort(); // 按文件名排序
         
-        files.forEach((file, index) => {
+        files.forEach((file) => {
             const filePath = path.join(categoryDir, file);
             const content = fs.readFileSync(filePath, 'utf8');
             const parsed = parseYamlFrontMatter(content);
             
             if (parsed && parsed.metadata.title) {
+                globalIndex++; // 全局递增
                 // 生成文件名（三位数字编号）
-                const fileNumber = String(index + 1).padStart(3, '0');
+                const fileNumber = String(globalIndex).padStart(3, '0');
                 const htmlFile = `${fileNumber}.html`;
                 
                 articles.push({
                     ...parsed.metadata,
-                    id: parseInt(parsed.metadata.id) || (index + 1),
+                    id: parseInt(parsed.metadata.id) || globalIndex,
                     file: htmlFile,
                     rawFile: `raw_article/${category}/${file}`,
                     category: category
