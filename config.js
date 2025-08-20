@@ -105,7 +105,6 @@ const siteConfig = {
       avatar: "avatar_inner.jpg",
       customLinks: [
         { text: "文章目录", url: "articles.html" },
-        { text: "美食图册", url: "gallery.html" },
         { text: "Steam", url: "" }
       ],
     // 可以选择使用模块化结构或传统sections结构
