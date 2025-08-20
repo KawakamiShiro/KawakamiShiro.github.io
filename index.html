@@ -45,18 +45,68 @@
 
     .tagline{margin:18px 0 26px;padding:14px 18px;border-radius:14px;background:var(--card);box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.06);transition:background var(--t), color var(--t), border-color var(--t);} 
 
+    /* 模块化结构样式 */
+    .module{margin-bottom:32px;}
+    .module:last-child{margin-bottom:0;}
+    
+            .group-title{font-size:16px;font-weight:600;color:var(--muted);margin:0 0 16px;letter-spacing:.2px;text-transform:uppercase;}
+        
+
+
     .grid{display:grid;gap:12px;}
-    .section{background:var(--card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;transition:background var(--t), color var(--t), border-color var(--t);} 
-    .section h2{font-size:18px;margin:0 0 10px;}
-    .items{display:grid;gap:8px;}
-    .item{font-size:15px;}
+    .section{background:var(--card);border:none;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;transition:background var(--t), color var(--t);} 
+          .section h2{font-size:18px;margin:0 0 10px;}
+      .items{display:grid;gap:8px;}
+      .item{font-size:15px;}
+      
+      /* 右对齐样式 */
+      .item-with-right{display:flex;justify-content:space-between;align-items:center;}
+      .item-right{color:var(--muted);font-size:14px;font-weight:500;}
+      
+      /* title右对齐样式 */
+      .title-with-right{display:flex;justify-content:space-between;align-items:center;}
+      .title-right{color:var(--muted);font-size:16px;font-weight:500;}
+      
+      /* 自定义链接样式 */
+      .custom-links {
+          display: flex;
+          gap: 0;
+          justify-content: space-between;
+          margin: 24px 0 4px 0;
+          flex-wrap: nowrap;
+      }
+      
+      .custom-link {
+          color: var(--muted);
+          text-decoration: none;
+          font-size: 14px;
+          font-weight: 400;
+          transition: color var(--t);
+          opacity: 0.8;
+          flex: 1;
+          text-align: center;
+      }
+      
+      .custom-link:hover {
+          color: var(--accent);
+          opacity: 1;
+      }
 
     footer{margin-top:28px;color:var(--muted);font-size:13px;text-align:center;}
 
-    @media (max-width:560px){
-      header{grid-template-columns:56px 1fr auto;}
-      .title{font-size:22px;}
-    }
+            @media (max-width:560px){
+          header{grid-template-columns:56px 1fr auto;gap:24px;}
+          .title{font-size:22px;}
+          .subtitle{margin:8px 0 0;}
+          
+                      .custom-links {
+                gap: 16px;
+            }
+            
+            .custom-link {
+                font-size: 13px;
+            }
+        }
   </style>
 </head>
 <body>
@@ -86,9 +136,17 @@
       </div>
     </header>
 
-    <p class="tagline" id="tagline"></p>
+            <!-- 自定义链接区域 -->
+        <div class="custom-links" id="customLinks">
+            <!-- 链接将通过JavaScript动态生成 -->
+        </div>
+        
+        <p class="tagline" id="tagline"></p>
 
-    <div id="sections" class="grid"></div>
+            <!-- 动态模块容器 -->
+        <div id="modulesContainer"></div>
+        
+
 
     <footer><div id="footer"></div></footer>
   </div>
@@ -111,10 +169,11 @@
 
     // ===== DOM & 工具 =====
     const $ = s => document.querySelector(s);
-    const elSections = $('#sections');
+    const elModulesContainer = $('#modulesContainer');
     const elTitle = $('#siteTitle');
     const elSub = $('#siteSub');
     const elTag = $('#tagline');
+    const elCustomLinks = $('#customLinks');
     const elFooter = $('#footer');
     const elAvatar = $('#avatar');
     const elAvatarLoading = $('#avatarLoading');
@@ -156,11 +215,32 @@
       btnDay.classList.toggle('active', isDay);
       btnNight.classList.toggle('active', !isDay);
     }
+    
+    // 渲染自定义链接
+    function renderCustomLinks(links) {
+        if (!links || links.length === 0) {
+            elCustomLinks.style.display = 'none';
+            return;
+        }
+        
+        elCustomLinks.style.display = 'flex';
+        elCustomLinks.innerHTML = links.map(link => {
+            const isExternal = link.url && (link.url.startsWith('http') || link.url.startsWith('//'));
+            const target = isExternal ? '_blank' : '_self';
+            const rel = isExternal ? 'rel="noopener noreferrer"' : '';
+            
+            return `<a href="${link.url || '#'}" class="custom-link" target="${target}" ${rel}>${link.text}</a>`;
+        }).join('');
+    }
 
     function renderData(d){
       elTitle.textContent = d.name;
       elSub.textContent = d.nickname || '';
       elTag.textContent = d.tagline || '';
+      
+      // 渲染自定义链接
+      renderCustomLinks(d.customLinks || []);
+      
       elFooter.textContent = d.footer || '';
       
       // 调试头像显示
@@ -178,42 +258,166 @@
         console.log('Avatar hidden');
       }
 
-      elSections.innerHTML = '';
-      (d.sections||[]).forEach(sec=>{
-        const box = document.createElement('section'); box.className = 'section';
-        const h2 = document.createElement('h2'); h2.textContent = sec.title; box.appendChild(h2);
-        const list = document.createElement('div'); list.className='items';
-        (sec.items||[]).forEach(line=>{ 
-          const p=document.createElement('div'); 
-          p.className='item'; 
+      // 渲染模块化内容
+      elModulesContainer.innerHTML = '';
+      
+      if (d.modules) {
+        // 使用模块化结构（dayMode和nightMode都支持）
+        d.modules.forEach(module => {
+          const moduleDiv = document.createElement('div');
+          moduleDiv.className = 'module';
           
-          // 检查是否包含超链接
-          if (line.includes('http')) {
-            const parts = line.split('http');
-            const text = parts[0];
-            const url = 'http' + parts[1];
+          // 添加分组标题
+          const groupTitle = document.createElement('h2');
+          groupTitle.className = 'group-title';
+          groupTitle.textContent = module.groupTitle;
+          moduleDiv.appendChild(groupTitle);
+          
+          // 渲染该模块下的所有sections
+          const sectionsGrid = document.createElement('div');
+          sectionsGrid.className = 'grid';
+          
+          module.sections.forEach(sec => {
+            const box = document.createElement('section');
+            box.className = 'section';
             
-            if (text) {
-              p.appendChild(document.createTextNode(text));
+            const h2 = document.createElement('h2');
+            
+            // 检查title是否是对象格式（支持右对齐）
+            if (typeof sec.title === 'object' && sec.title.text) {
+              h2.className = 'title-with-right';
+              
+              // 左侧标题文本
+              const leftTitle = document.createElement('span');
+              leftTitle.textContent = sec.title.text;
+              h2.appendChild(leftTitle);
+              
+              // 右侧内容
+              if (sec.title.right) {
+                const rightTitle = document.createElement('span');
+                rightTitle.className = 'title-right';
+                rightTitle.textContent = sec.title.right;
+                h2.appendChild(rightTitle);
+              }
+            } else {
+              // 传统字符串格式
+              h2.textContent = sec.title;
             }
             
-            const link = document.createElement('a');
-            link.href = url;
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-            link.textContent = url;
-            link.style.color = 'var(--accent)';
-            link.style.textDecoration = 'underline';
+            box.appendChild(h2);
             
-            p.appendChild(link);
-          } else {
-            p.textContent = line;
-          }
+            const list = document.createElement('div');
+            list.className = 'items';
+            
+            sec.items.forEach(line => {
+              const p = document.createElement('div');
+              
+              // 检查是否是对象格式（支持右对齐）
+              if (typeof line === 'object' && line.text) {
+                p.className = 'item item-with-right';
+                
+                // 左侧文本
+                const leftText = document.createElement('span');
+                leftText.textContent = line.text;
+                p.appendChild(leftText);
+                
+                // 右侧内容
+                if (line.right) {
+                  const rightText = document.createElement('span');
+                  rightText.className = 'item-right';
+                  rightText.textContent = line.right;
+                  p.appendChild(rightText);
+                }
+              } else {
+                // 传统字符串格式
+                p.className = 'item';
+                
+                // 检查是否包含超链接
+                if (line.includes('http')) {
+                  const parts = line.split('http');
+                  const text = parts[0];
+                  const url = 'http' + parts[1];
+                  
+                  if (text) {
+                    p.appendChild(document.createTextNode(text));
+                  }
+                  
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.target = '_blank';
+                  link.rel = 'noopener noreferrer';
+                  link.textContent = url;
+                  link.style.color = 'var(--accent)';
+                  link.style.textDecoration = 'underline';
+                  
+                  p.appendChild(link);
+                } else {
+                  p.textContent = line;
+                }
+              }
+              
+              list.appendChild(p);
+            });
+            
+            box.appendChild(list);
+            sectionsGrid.appendChild(box);
+          });
           
-          list.appendChild(p); 
+          moduleDiv.appendChild(sectionsGrid);
+          elModulesContainer.appendChild(moduleDiv);
         });
-        box.appendChild(list); elSections.appendChild(box);
-      });
+      } else if (d.sections) {
+        // 回退到传统sections结构（向后兼容）
+        const sectionsGrid = document.createElement('div');
+        sectionsGrid.className = 'grid';
+        
+        d.sections.forEach(sec => {
+          const box = document.createElement('section');
+          box.className = 'section';
+          
+          const h2 = document.createElement('h2');
+          h2.textContent = sec.title;
+          box.appendChild(h2);
+          
+          const list = document.createElement('div');
+          list.className = 'items';
+          
+          sec.items.forEach(line => {
+            const p = document.createElement('div');
+            p.className = 'item';
+            
+            // 检查是否包含超链接
+            if (line.includes('http')) {
+              const parts = line.split('http');
+              const text = parts[0];
+              const url = 'http' + parts[1];
+              
+              if (text) {
+                p.appendChild(document.createTextNode(text));
+              }
+              
+              const link = document.createElement('a');
+              link.href = url;
+              link.target = '_blank';
+              link.rel = 'noopener noreferrer';
+              link.textContent = url;
+              link.style.color = 'var(--accent)';
+              link.style.textDecoration = 'underline';
+              
+              p.appendChild(link);
+            } else {
+              p.textContent = line;
+            }
+            
+            list.appendChild(p);
+          });
+          
+          box.appendChild(list);
+          sectionsGrid.appendChild(box);
+        });
+        
+        elModulesContainer.appendChild(sectionsGrid);
+      }
     }
 
     const STORAGE_KEY = 'site-mode';
