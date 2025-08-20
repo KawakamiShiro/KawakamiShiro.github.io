@@ -40,6 +40,7 @@ const articleTemplate = (title, meta, content) => `<!DOCTYPE html>
             --text: #1f2937;
             --muted: #6b7280;
             --card: #ffffff;
+            --card-rgb: 255, 255, 255;
             --accent: #ef4444;
         }
 
@@ -49,6 +50,7 @@ const articleTemplate = (title, meta, content) => `<!DOCTYPE html>
             --text: #1f2735;
             --muted: #5b6472;
             --card: #ffffff;
+            --card-rgb: 255, 255, 255;
             --accent: #3b82f6;
         }
 
@@ -524,13 +526,7 @@ function generateAllArticles() {
 
 // 获取分类名称
 function getCategoryName(categoryKey) {
-    const categories = {
-        tech: "技术文章",
-        food: "美食研究",
-        life: "生活随笔",
-        game: "游戏相关"
-    };
-    return categories[categoryKey] || categoryKey;
+    return categoryKey;
 }
 
 // 生成 articles.js 配置文件
@@ -541,16 +537,9 @@ function generateArticlesConfig(articles) {
     const categories = {};
     articles.forEach(article => {
         if (!categories[article.category]) {
-            const categoryNames = {
-                tech: "技术文章",
-                food: "美食研究",
-                life: "生活随笔",
-                game: "游戏相关"
-            };
-            
             categories[article.category] = {
-                name: categoryNames[article.category] || article.category,
-                description: `${categoryNames[article.category] || article.category}相关文章`,
+                name: article.category,
+                description: `${article.category}相关文章`,
                 icon: getCategoryIcon(article.category)
             };
         }
@@ -571,9 +560,9 @@ const articlesConfig = {
   siteInfo: {
     title: "文章目录 - Kawakami Shiro",
     author: "渊",
-    avatar: "avatar_study.jpg",
-    nickname: "USTC, baiyanchi1220@gmail.com",
-    description: "技术分享、美食探索、生活感悟、游戏制作"
+    avatar: "avatar_inner.jpg",
+    nickname: "爱与喜欢，为什么能那么轻易地说出口呢？",
+    description: ""
   },
 
   // 主题配置
@@ -584,6 +573,7 @@ const articlesConfig = {
       text: '#1f2937',
       muted: '#6b7280',
       card: '#ffffff',
+      cardRgb: '255, 255, 255',
       accent: '#ef4444'
     },
     night: {
@@ -592,6 +582,7 @@ const articlesConfig = {
       text: '#1f2735',
       muted: '#5b6472',
       card: '#ffffff',
+      cardRgb: '255, 255, 255',
       accent: '#3b82f6'
     }
   }
@@ -610,13 +601,7 @@ if (typeof module !== 'undefined' && module.exports) {
 
 // 获取分类图标
 function getCategoryIcon(category) {
-    const icons = {
-        tech: "💻",
-        food: "🍜",
-        life: "📝",
-        game: "🎮"
-    };
-    return icons[category] || "📄";
+    return ""; // 不显示图标
 }
 
 // 如果直接运行此脚本

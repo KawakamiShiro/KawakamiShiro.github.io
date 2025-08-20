@@ -10,8 +10,8 @@ const siteConfig = {
 
   // 表形态（学业形态）配置
       dayMode: {
-      name: "白晏迟",
-      nickname: "USTC, baiyanchi1220@gmail.com",
+      name: "迟承渊",
+      nickname: "USTC",
       tagline: "研究方向：吃饭和睡觉",
       avatar: "avatar_study.jpg",
       customLinks: [

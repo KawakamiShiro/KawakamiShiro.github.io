@@ -8,6 +8,11 @@ const articlesConfig = {
     "name": "卡拉彼丘观察日志",
     "description": "卡拉彼丘观察日志相关文章",
     "icon": ""
+  },
+  "泛视觉小说品鉴录": {
+    "name": "泛视觉小说品鉴录",
+    "description": "泛视觉小说品鉴录相关文章",
+    "icon": ""
   }
 },
 
@@ -27,6 +32,20 @@ const articlesConfig = {
     "id": 1,
     "file": "001.html",
     "rawFile": "raw_article/卡拉彼丘观察日志/001-被遗弃之人.md"
+  },
+  {
+    "title": "水烟水雾",
+    "excerpt": "欢迎光临“水烟水雾”！",
+    "category": "泛视觉小说品鉴录",
+    "tags": [
+      "Galgame",
+      "测评"
+    ],
+    "date": "2025-08-20",
+    "author": "渊",
+    "id": 2,
+    "file": "001.html",
+    "rawFile": "raw_article/泛视觉小说品鉴录/002-水烟水雾.md"
   }
 ],
 
@@ -35,8 +54,8 @@ const articlesConfig = {
     title: "文章目录 - Kawakami Shiro",
     author: "渊",
     avatar: "avatar_inner.jpg",
-    nickname: "baiyanchi1220@gmail.com",
-    description: "技术分享、美食探索、生活感悟、游戏制作"
+    nickname: "爱与喜欢，为什么能那么轻易地说出口呢？",
+    description: ""
   },
 
   // 主题配置
@@ -47,6 +66,7 @@ const articlesConfig = {
       text: '#1f2937',
       muted: '#6b7280',
       card: '#ffffff',
+      cardRgb: '255, 255, 255',
       accent: '#ef4444'
     },
     night: {
@@ -55,6 +75,7 @@ const articlesConfig = {
       text: '#1f2735',
       muted: '#5b6472',
       card: '#ffffff',
+      cardRgb: '255, 255, 255',
       accent: '#3b82f6'
     }
   }

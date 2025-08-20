@@ -35,6 +35,7 @@
             --muted: var(--day-muted);
             --card: var(--day-card);
             --accent: var(--day-accent);
+            --accent-text: #8b0000; /* 低饱和度红色 */
         }
 
         body.night-theme {
@@ -44,6 +45,7 @@
             --muted: var(--night-muted);
             --card: var(--night-card);
             --accent: var(--night-accent);
+            --accent-text: #1e3a8a; /* 低饱和度蓝色 */
         }
 
         .container {
@@ -110,21 +112,33 @@
         /* 导航样式 */
         .nav {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             margin-bottom: 26px;
-            justify-content: center;
+            justify-content: space-between;
         }
 
         .nav-item {
-            background: var(--card);
+            background: rgba(255, 255, 255, 0.4);
             color: var(--text);
             text-decoration: none;
-            padding: 14px 18px;
-            border-radius: 14px;
+            padding: 10px 14px;
+            border-radius: 12px;
             box-shadow: var(--shadow);
             transition: all var(--t);
             font-weight: 500;
             border: 1px solid rgba(0,0,0,.06);
+            font-size: 13px;
+            flex: 1;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        body.night-theme .nav-item {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        body.day-theme .nav-item {
+            background: rgba(255, 255, 255, 0.4);
         }
 
         .nav-item:hover {
@@ -135,7 +149,16 @@
 
         .nav-item.active {
             background: var(--accent);
-            color: white;
+            color: var(--accent-text) !important;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .nav-item.active:hover {
+            color: var(--accent-text) !important;
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
 
         /* 文章网格 */
@@ -265,7 +288,11 @@
             
             .nav {
                 flex-direction: column;
-                align-items: center;
+                align-items: stretch;
+            }
+            
+            .nav-item {
+                flex: none;
             }
             
             .back-home {
@@ -287,7 +314,7 @@
                 <h1 class="title" id="name">渊</h1>
                 <p class="subtitle" id="nickname">USTC, baiyanchi1220@gmail.com</p>
             </div>
-            <button class="theme-toggle" id="themeToggle">🌙</button>
+            <button class="theme-toggle" id="themeToggle">☾</button>
         </header>
 
         <!-- 导航 -->
@@ -300,8 +327,8 @@
             <!-- 文章卡片将通过JavaScript动态生成 -->
         </div>
 
-        <!-- 返回主页按钮 -->
-        <button class="back-home" onclick="goHome()" title="返回主页">🏠</button>
+                 <!-- 返回主页按钮 -->
+         <button class="back-home" onclick="goHome()" title="返回主页">⌂</button>
     </div>
 
     <script>
@@ -336,6 +363,7 @@
             root.style.setProperty('--day-text', dayTheme.text);
             root.style.setProperty('--day-muted', dayTheme.muted);
             root.style.setProperty('--day-card', dayTheme.card);
+            root.style.setProperty('--day-card-rgb', dayTheme.cardRgb);
             root.style.setProperty('--day-accent', dayTheme.accent);
             
             // 设置夜间主题变量
@@ -344,6 +372,7 @@
             root.style.setProperty('--night-text', nightTheme.text);
             root.style.setProperty('--night-muted', nightTheme.muted);
             root.style.setProperty('--night-card', nightTheme.card);
+            root.style.setProperty('--night-card-rgb', nightTheme.cardRgb);
             root.style.setProperty('--night-accent', nightTheme.accent);
         }
 
@@ -375,14 +404,14 @@
             const categories = articlesConfig.categories;
             
             // 添加"全部文章"选项
-            let navHTML = `<a href="#" class="nav-item active" data-category="all"> 全部文章</a>`;
+            let navHTML = `<a href="#" class="nav-item active" data-category="all">全部文章</a>`;
             
             // 添加各个分类
             Object.keys(categories).forEach(categoryKey => {
                 const category = categories[categoryKey];
                 navHTML += `
                     <a href="#" class="nav-item" data-category="${categoryKey}">
-                        ${category.icon} ${category.name}
+                        ${category.name}
                     </a>
                 `;
             });
@@ -415,11 +444,11 @@
                         <div class="article-tags">
                             ${article.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                         </div>
-                        <div class="article-info">
-                            <span class="article-author">${article.author}</span>
-                            <span class="article-date">${article.date}</span>
-                            <span class="article-read-time">${article.readTime}</span>
-                        </div>
+                                                 <div class="article-info">
+                             <span class="article-author">${article.author}</span>
+                             <span class="article-date">${article.date}</span>
+                             ${article.readTime ? `<span class="article-read-time">${article.readTime}</span>` : ''}
+                         </div>
                     </div>
                 </div>
             `).join('');
@@ -455,11 +484,11 @@
             if (body.classList.contains('day-theme')) {
                 body.classList.remove('day-theme');
                 body.classList.add('night-theme');
-                button.textContent = '☀️';
+                button.textContent = '☾';
             } else {
                 body.classList.remove('night-theme');
                 body.classList.add('day-theme');
-                button.textContent = '🌙';
+                button.textContent = '☀';
             }
         }
 
