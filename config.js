@@ -46,72 +46,60 @@ const siteConfig = {
         sections: [
           {
             title: {
-              text: "基于电阻压力映射设备的实时姿态预测（本科毕设）",
-              right: "2023.10-2024.05"
+              text: "Real-time Posture Prediction Based on Resistive Pressure Mapping Device (Bachelor Thesis)",
+              right: "Oct. 2023 - May 2024"
             },
             items: [
-              "面向医疗看护等场景，解决传统体压监测系统响应慢、功能单一的问题",
-              "构建基于ResNet-50的2D/3D姿态识别系统，并实现实时渲染优化",
-              "设计多线程架构，分离预测、渲染与分类逻辑；基于 ResNet-50 构建2D/3D压力图识别模型，结合指数平滑与3D骨架渲染提升视觉效果",
-              "系统支持实时姿态检测与计时功能，整体运行稳定，识别准确率高"
+              "Addressed slow response and limited functionality of traditional body pressure monitoring systems for healthcare scenarios",
+              "Built 2D/3D posture recognition system based on ResNet-50 with real-time rendering optimization",
+              "Designed multi-threaded architecture separating prediction, rendering, and classification logic; constructed 2D/3D pressure map recognition model using ResNet-50, enhanced visual effects with exponential smoothing and 3D skeleton rendering",
+              "System supports real-time posture detection and timing functions, achieving stable operation and high recognition accuracy"
             ]
           },
           {
             title: {
-              text: "Tagnoo: 基于 RFID 增强胶合板的智能环境（CHI 2024 | 第三作者）",
-              right: "2023.07-2023.09"
+              text: "TTagnoo: Enabling Smart Room-Scale Environments with RFID-Augmented Plywood (CHI 2024 | Third Author)",
+              right: "July 2023 - Sept. 2023"
             },
             items: [
               "Advisor: Xingdong Yang, Associate Professor, Simon Fraser University",
-              "为实现家具中无缝的人体感知，设计集成 RFID 标签的智能材料平台",
-              "开发可实时识别办公场景中人体活动的传感系统并验证其实用性",
-              "负责 RFID 数据采集与特征处理，构建基于 CNN 的人体活动识别模型，设计用户研究并收集多类行为数据",
-              "系统在真实办公环境中识别准确率达90%以上，论文成果被CHI 2024接收，作为第三作者发表"
+              "Designed intelligent material platform integrating RFID tags for seamless human perception in furniture",
+              "Developed real-time human activity recognition system for office scenarios and validated its practicality",
+              "Responsible for RFID data collection and feature processing, built CNN-based human activity recognition model, designed user studies and collected diverse behavioral data",
+              "System achieved over 90% recognition accuracy in real office environments, paper accepted at CHI 2024 as third author"
             ]
           },
           {
             title: {
-              text: "新加坡国立大学计算机学院暑期工作坊（团队项目）",
-              right: "2023.07"
+              text: "National University of Singapore Computer Science Summer Workshop (Team Project)",
+              right: "July 2023"
             },
             items: [
-              "针对居家办公场景，设计多功能的智能照明调节系统",
-              "开发基于用户行为识别的灯光控制模块，并组织团队完成项目交付",
-              "在Raspberry Pi上实现摄像头采集与灯光控制；提出工作模式识别与久坐提醒功能，带领团队完成算法设计、系统整合与项目展示",
-              "项目最终展示中荣获第三名（Top 3/11）"
-            ]
-          },
-          {
-            title: {
-              text: "中国科学技术大学 RoboGame 机器人竞赛（团队项目）",
-              right: "2022.08-2022.12"
-            },
-            items: [
-              "参与设计一款可自主完成导航、识别与投掷冰壶任务的机器人系统",
-              "参与机器人路径规划与操作流程开发，确保任务完成的准确性与稳定性",
-              "基于STM32实现步进电机控制，开发图像识别与轨迹跟踪模块，持续优化投掷动作",
-              "系统在比赛中稳定完成任务，项目获二等奖（Top 12/41）"
+              "Developed a lamp-based home smart hub system using cameras to capture human activities and adjust light intensity based on environmental and user working modes.",
+              "Implemented sensor control algorithms on Raspberry Pi using Python and developed machine learning algorithms to analyze videos for determining user working modes. ",
+              "As team leader, proposed the smart lamp idea and core functionalities such as recognizing working modes and sedentary reminders. Assigned tasks, designed the poster, and delivered the presentation. ",
+              "Won the 3rd Prize in the final demo (Top 3/11)."
             ]
           }
         ]
       },
       {
-        groupTitle: "技能栈",
+        groupTitle: "Technical Skills",
         sections: [
           {
-            title: "编程语言",
+            title: "Programming Languages",
             items: [
               "Python", "C", "MATLAB"
             ]
           },
           {
-            title: "硬件开发",
+            title: "Hardware Development",
             items: [
               "STM32", "Raspberry Pi", "Arduino"
             ]
           },
           {
-            title: "开发工具",
+            title: "Development Tools",
             items: [
               "Git", "Linux", "ROS"
             ]
