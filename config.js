@@ -12,7 +12,7 @@ const siteConfig = {
       dayMode: {
       name: "Jiuen Feng",
       nickname: "Lund University",
-      tagline: "Research Interests: Human-Computer Interaction, Emotion Intelligence, and Machine Learning",
+      tagline: "Research Interests: Human-Computer Interaction, Embodied Intelligence, and Machine Learning",
       avatar: "avatar_study.jpg",
       customLinks: [
         { text: "GitHub", url: "https://github.com/KawakamiShiro" }
