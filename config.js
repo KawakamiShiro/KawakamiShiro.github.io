@@ -34,7 +34,7 @@ const siteConfig = {
             title: "University of Science and Technology of China",
             items: [
               {
-                text: "Automation",
+                text: "Bachelor of Engineering in Automation, School of Gifted Young",
                 right: "2020-2024"
               }
             ]
