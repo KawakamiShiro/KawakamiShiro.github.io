@@ -4,7 +4,7 @@
 const siteConfig = {
   // 网站基本信息
   siteInfo: {
-    title: "Kawakami Shiro",
+    title: "Jiuen Feng",
     language: "zh-CN"
   },
 
@@ -46,6 +46,17 @@ const siteConfig = {
         sections: [
           {
             title: {
+              text: "Learning Robot Skill Trajectories from Human Hand Videos (Course Project)",
+              right: "Mar. 2025 - Jun. 2025"
+            },
+            items: [
+              "Investigated cross-modal transfer of human hand trajectories to robotic platforms without teleoperation data.",
+              "Built a token-level alignment framework (HPT-based) combining HaMeR-extracted 3D trajectories with simulated robot motion data.",
+              "Demonstrated feasibility of learning new robotic skills directly from egocentric human video."
+            ]
+          },
+          {
+            title: {
               text: "Real-time Posture Prediction Based on Resistive Pressure Mapping Device (Bachelor Thesis)",
               right: "Oct. 2023 - May 2024"
             },
@@ -58,7 +69,7 @@ const siteConfig = {
           },
           {
             title: {
-              text: "TTagnoo: Enabling Smart Room-Scale Environments with RFID-Augmented Plywood (CHI 2024 | Third Author)",
+              text: "Tagnoo: Enabling Smart Room-Scale Environments with RFID-Augmented Plywood (CHI 2024 | Third Author)",
               right: "July 2023 - Sept. 2023"
             },
             items: [
@@ -112,9 +123,9 @@ const siteConfig = {
 
   // 里形态（二次元形态）配置
       nightMode: {
-      name: "渊/海洋球",
-      nickname: "可以叫我小渊",
-      tagline: "一只冰川鼠妇",
+      name: "MarineBall",
+      nickname: "Yuan",
+      tagline: "Game Designer",
       avatar: "avatar_inner.jpg",
       // customLinks: [
       //   { text: "文章目录", url: "articles.html" },
@@ -123,73 +134,50 @@ const siteConfig = {
     // 可以选择使用模块化结构或传统sections结构
     modules: [
       {
-        // groupTitle: "游戏爱好",
         sections: [
-          // {
-          //   title: "电竞 / 主播",
-          //   items: [
-          //     "赛事只看 VCT CN，坐标欧洲的时候偶尔看EMEA",
-          //     "友情支持 xlg，好感选手很多，杂食生物",
-          //     "拒列外淀粉，梦女，表演型人格",
-          //     "八百年不给主播送钱了也不怎么看主播，但是请支持青青岁岁"
-          //   ]
-          // },
-          // {
-          //   title: "史同",
-          //   items: [
-          //     "我推：钟会、郗超",
-          //     "会右&桓郗谢",
-          //     "×钟会恋爱脑舔狗塑",
-          //     "爱玩真三，请光荣归还飞翔剑谢谢"
-          //   ]
-          // },
-          // {
-          //   title: "游戏",
-          //   items: [
-          //     "Apex 密客电妹平行car绝症（新赛季被打退役了）",
-          //     "视觉小说爱好者，全性向都可以，bggbblgl是人不是人都可以",
-          //     "我喜欢看三角恋，我永远喜欢冬马和纱",
-          //     "Valorant 欧服黄白金烟哨",
-          //     "卡拉彼丘 电子水平，会产出令信/墨信/熊信/墨莎，单机同人女",
-          //     "手游只玩绘旅人，路辰单推，不混社群"
-          //   ]
-          // },
           {
-            title: "游戏制作",
+            title: "Learning Process",
             items: [
-              "Godot/Renpy 学习中",
-              "原创视觉小说筹备中",
-              "同人作品请见MarinPup Studio: https://marinepup.itch.io/"
+              "Godot/Renpy Learning",
+              "Original Visual Novel in Preparation",
+              "Fan-made works please visit MarinPup Studio: https://marinepup.itch.io/"
             ]
           },
+          {
+            title: "Locked Room with Caleb",
+            items: [
+              "A 1-hour otome fan game inspired by Caleb (Love and Deepspace), where players relive memories and make choices in a dream room",
+              "Played by 1500+ people, with merchandise designed and sold",
+              "My role: planning, partial scriptwriting, full programming development in Godot",
+              "https://marinepup.itch.io/locked-room-with-caleb"
+            ]
+          },
+          {
+            title: "Summertime",
+            items: [
+              "A BL fan game featuring two gaming streamers as protagonists, created with WebGAL in 2023",
+              "Received 50+ shares and multiple positive reviews",
+              "My role: character sprites, scriptwriting, and programming",
+              "https://kawakamishiro.github.io/Natsukoi/"
+            ]
+          },
+          {
+            title: "Desktop Pet Project",
+            items: [
+              "A customizable virtual desktop pet with tutorial videos reaching 2500+ views and 500+ saves",
+              "Developed interactive features including sleep clock, live-stream reminders, and online-database-driven dialogue updates",
+              "Character sprites commissioned; scriptwriting and programming fully done by myself.",
+              "https://www.bilibili.com/video/BV1ztpEzxEbs"
+            ]
+          },
+          
+          
 
         ]
       },
-      // {
-      //   groupTitle: "其他",
-      //   sections: [
-      //     {
-      //       title: "番剧",
-      //       items: [
-      //         "异世界龙傲天厕纸爱好者，最喜欢影之实力者/问题儿童/游戏人生",
-      //         "番剧看得很少，对上点播才会看，一天之内看完了86",
-      //         "非常喜欢RWBY的世界观设定和美术设计",
-      //         "MLP虹林檎洁癖"
-      //       ]
-      //     },
-      //     {
-      //       title: "小说",
-      //       items: [
-      //         "只看文，不看社群",
-      //         "反舌鸟是我女神",
-      //         "一十四洲也是我女神"
-      //       ]
-      //     }
-      //   ]
-      // }
+
     ],
-    // 如果不想使用模块化，也可以保留传统sections结构
-    // sections: [...],
+
     footer: "© 2025 Kawakami Shiro"
   },
 
