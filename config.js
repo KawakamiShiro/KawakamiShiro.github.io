@@ -118,7 +118,7 @@ const siteConfig = {
         ]
       }
     ],
-    footer: "© 2025 Kawakami Shiro"
+    footer: "© 2025 Jiuen Feng"
   },
 
   // 里形态（二次元形态）配置
@@ -178,7 +178,7 @@ const siteConfig = {
 
     ],
 
-    footer: "© 2025 Kawakami Shiro"
+    footer: "© 2025 Jiuen Feng"
   },
 
   // 主题配色配置
