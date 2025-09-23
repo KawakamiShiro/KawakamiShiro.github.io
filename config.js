@@ -15,7 +15,8 @@ const siteConfig = {
       tagline: "Research Interests: Human-Computer Interaction, Embodied Intelligence, and Machine Learning",
       avatar: "avatar_study.jpg",
       customLinks: [
-        { text: "GitHub", url: "https://github.com/KawakamiShiro" }
+        { text: "GitHub", url: "https://github.com/KawakamiShiro" },
+        { text: "CV", url: "Jiuen_CV.pdf" }
       ],
     modules: [
       {
@@ -37,6 +38,19 @@ const siteConfig = {
                 text: "Bachelor of Engineering in Automation, School of Gifted Young",
                 right: "2020-2024"
               }
+            ]
+          }
+        ]
+      },
+      {
+        groupTitle: "Professional Skills",
+        sections: [
+          {
+            title: "Lenovo Research HCI Internship",
+            items: [
+              "Focused on enabling large language models to generate personalized action plans grounded in user behaviors and preferences ",
+              "Designed a reasoning framework with structured multimodal user modeling, improving retrieval efficiency and contextual coverage ",
+              "Evaluated the framework in multiple tasks, showing its potential for adaptive human–AI collaboration"
             ]
           }
         ]
